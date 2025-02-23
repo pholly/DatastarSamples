@@ -1,0 +1,44 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 class="display-4 bg-primary-subtle d-flex align-items-center justify-content-center">
+    <img src="images/datastarwhitelogo.svg" style="height: 1em;" alt="Datastar white logo"/> Datastar Test
+</h1>
+
+<div class="container px-0 py-1" id="featured-3">
+    <h2 class="pb-2 border-bottom">Sample Orders</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
+        <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"/>
+                </svg>
+            </div>
+            <h3 class="fs-2 text-body-emphasis">View the first <em>n</em> orders</h3>
+            <p>This demonstrates returning multiple SSE events - an alert and a table</p>
+            <form 
+                data-signals="{maxOrderCount: 50, delayInSeconds: 3}"
+                data-on-submit="@@post('@Url.Action("_OrdersTable")', {contentType: 'form', openWhenHidden: true})">
+                <div class="mb-3">
+                    <label for="maxNum" class="form-label">Max number of orders</label>
+                    <input data-bind="maxOrderCount" type="number" class="form-control" name="maxOrderCount" id="maxNum" aria-describedby="maxNumHelp" min="-1" max="@Order.SampleOrders.Count()">
+                    <div id="maxNumHelp" class="form-text">Enter a number between -1 and @Order.SampleOrders.Count()</div>
+                </div>
+                <div class="mb-3">
+                    <label for="delayInSeconds" class="form-label">Delay</label>
+                    <input data-bind="delayInSeconds" type="number" class="form-control" name="delayInSeconds" id="delayInSeconds" aria-describedby="delayInSecondsHelp" min="0" max="5">
+                    <div id="delayInSecondsHelp" class="form-text">Enter a number of seconds between 0 and 5</div>
+                </div>
+                <button type="submit" class="btn btn-outline-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="alert">
+    
+</div>
+
+@await Html.PartialAsync("_TablePartial", new TablePartialViewModel(Model.Orders))

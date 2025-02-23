@@ -1,0 +1,37 @@
+@model TablePartialViewModel
+
+@{
+    Layout = null;
+}
+
+<table id="orderTable" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Lot Number</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (!Model.Orders.Any())
+    {
+        <tr>
+            <td colspan="4" class="text-center">No orders to display.</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.Item</td>
+                <td>@order.Quantity</td>
+                <td>@order.LotNumber</td>
+            </tr>
+        }    
+    }
+    </tbody>
+</table>
+
