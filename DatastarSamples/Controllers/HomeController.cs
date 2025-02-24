@@ -58,6 +58,8 @@ public class HomeController : Controller
         IEnumerable<Order> orders = Order.SampleOrders.Take(maxOrderCount);
         var tableVm = new TablePartialViewModel(orders);
         await StreamOrderTable(tableVm, sse);
+        
+        await StreamAlert(new AlertViewModel("Loading complete", "alert-success"), sse);
     }
 
     public async Task StreamAlert(AlertViewModel alertViewModel, IDatastarServerSentEventService sse)
