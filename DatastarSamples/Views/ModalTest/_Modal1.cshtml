@@ -1,0 +1,29 @@
+@model bool
+@{
+    Layout = null;
+}
+
+
+<div id="exampleModalContent">
+    @if (Model)
+    {
+        <div class="modal-body">
+            This is the body of the modal
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-on-click="@@get('@Url.Action("ReloadModal", new {first = false})')">Datastar</button>
+        </div>    
+    }
+    else
+    {
+        <div class="modal-body">
+            This could be step 2 of the same modal. We could also replace the modal header.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-on-click="@@get('@Url.Action("ReloadModal", new {first = true})')">Back</button>
+            <button type="button" class="btn btn-primary" data-on-click="@@post('@Url.Action("Save")')">Save changes</button>
+        </div>
+    }
+    
+</div>
+      
